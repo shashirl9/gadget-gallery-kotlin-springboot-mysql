@@ -9,13 +9,17 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
+import java.net.InetAddress
 
 @RestController
 @RequestMapping("/api")
 class GadgetController(private val gadgetRepository: GadgetRepository) {
 
     @GetMapping("/")
-    fun display(): String = "Spring Boot CRUD operation with Kotlin and MySQL...!"
+    fun display() : String {
+        val hostName = InetAddress.getLocalHost().hostName
+        return hostName + "Spring Boot CRUD operation with Kotlin and MySQL...!"
+    }
 
     @GetMapping("/gadgets")
     fun fetchGadgets(): ResponseEntity<List<Gadget>> {
