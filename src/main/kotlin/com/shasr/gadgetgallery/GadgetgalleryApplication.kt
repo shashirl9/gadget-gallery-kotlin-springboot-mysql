@@ -1,9 +1,11 @@
 package com.shasr.gadgetgallery
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
+@OpenAPIDefinition
 @SpringBootApplication
 class GadgetgalleryApplication : CommandLineRunner {
 
