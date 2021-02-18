@@ -45,4 +45,37 @@ class GadgetController(private val gadgetRepository: GadgetRepository) {
         }
         return ResponseEntity<Gadget>(HttpStatus.NOT_FOUND)
     }
+
+    @DeleteMapping("/gadgets/{id}")
+    fun removeGadgetById(@PathVariable("id") gadgetId: Long): ResponseEntity<Void> {
+        val gadget = gadgetRepository.findById(gadgetId)
+        if (gadget.isPresent) {
+            gadgetRepository.deleteById(gadgetId)
+            return ResponseEntity<Void>(HttpStatus.NO_CONTENT)
+        }
+        return ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR)
+    }
+
+    @PutMapping("/gadgets/{id}")
+    fun updateGadgetById(@PathVariable("id") gadgetId: Long, @RequestBody gadget: Gadget): ResponseEntity<Gadget> {
+        return gadgetRepository.findById(gadgetId).map { gadgetDetails ->
+            val updatedGadget: Gadget = gadgetDetails.copy(
+                gadgetCategory = gadget.gadgetCategory,
+                gadgetName = gadget.gadgetName,
+                gadgetPrice = gadget.gadgetPrice,
+                gagdetAvailability = gadget.gagdetAvailability
+            )
+            ResponseEntity(gadgetRepository.save(updatedGadget), HttpStatus.OK)
+        }.orElse(ResponseEntity<Gadget>(HttpStatus.INTERNAL_SERVER_ERROR))
+    }
+
+    @DeleteMapping("/gadgets")
+    fun removeGadgets(): ResponseEntity<Void> {
+        val gadgets = gadgetRepository.findAll()
+        if (gadgets.isEmpty()) {
+            return ResponseEntity<Void>(HttpStatus.NO_CONTENT)
+        }
+        gadgetRepository.deleteAll()
+        return ResponseEntity<Void>(HttpStatus.OK)
+    }
 }
