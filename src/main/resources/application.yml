@@ -1,28 +1,20 @@
-## H2 Configuration
+## MySQL Configuration
 spring:
-    h2:
-      console:
-        enabled: true
-        path: /gadget-console
-        settings:
-          trace: false
-          web-allow-others: false
-    datasource:
-      url: jdbc:h2:mem:gadget-db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-      username: gadgetadmin
-      password: gadgetpwd
-    jpa:
-      database: default
-      show-sql: true
+  datasource:
+    url: jdbc:mysql://172.17.0.14:3306/coredb?useSSL=false
+    username: myuser
+    password: mypwd
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
       hibernate:
-        ddl-auto: update
-      properties:
-        hibernate:
-          dialect: org.hibernate.dialect.H2Dialect
-          use_sql_comments: true
-          format_sql: true
+        dialect: org.hibernate.dialect.MySQL5Dialect
+        use_sql_comments: true
+        format_sql: true
 
 springdoc:
   swagger-ui:
-    path: /gadget-gallery
+    path: /
     operationsSorter: method
