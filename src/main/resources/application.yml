@@ -1,7 +1,7 @@
 ## MySQL Configuration
 spring:
   datasource:
-    url: jdbc:mysql://172.17.0.14:3306/coredb?useSSL=false
+    url: jdbc:mysql://172.17.0.13:3306/coredb?useSSL=false
     username: myuser
     password: mypwd
   jpa:
